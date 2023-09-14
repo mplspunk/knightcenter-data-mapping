@@ -1,4 +1,4 @@
-all: directories downloads freshdata
+all: directories downloads freshdata filecheck
 
 directories:
 	-mkdir tmp
