@@ -11,6 +11,14 @@ downloads:
 freshdata:
 	node imf_to_csv.js
 
+filecheck:
+		curl "https://s3.amazonaws.com/media.johnkeefe.net/class-modules/inflation.csv" -o tmp/previous.csv
+
+		cmp --silent ./tmp/previous.csv ./data/inflation.csv || \
+		curl -X POST -H 'Content-type: application/json' \
+		--insecure \
+		--data '{"text":"The file you asked me to watch has changed!"}' $$SLACK_WEBHOOK
+
 droughtmap:
 	# get and unzip the drought map
 	curl "https://droughtmonitor.unl.edu/data/shapefiles_m/USDM_current_M.zip" -o tmp/USDM_current_M.zip
